@@ -109,13 +109,19 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                         ),
                         activeColor: Colors.white,
                       ),
+                      //TODO(remove or find how to remove splash)
+                      // onTap: (position) {
+                      //   setState(() {
+                      //     currentIndex = position;
+                      //   });
+                      // },
                     ),
                   ),
                   SafeArea(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10, right: 10),
-                      child: Align(
-                        alignment: Alignment.topRight,
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 10),
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(

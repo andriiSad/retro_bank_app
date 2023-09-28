@@ -20,41 +20,47 @@ class OnBoardingBody extends StatelessWidget {
   final int currentIndex;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 500),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          key: ValueKey<int>(
-            content.hashCode,
-          ),
-          children: [
-            Stack(
-              children: [
-                SizedBox(
-                  height: context.screenHeight * 0.85,
-                  child: ShaderMask(
-                    blendMode: BlendMode.dstIn,
-                    shaderCallback: (Rect bounds) {
-                      return const LinearGradient(
-                        colors: [Colors.black, Colors.transparent],
-                        begin: Alignment.center,
-                        end: Alignment.bottomCenter,
-                      ).createShader(bounds);
-                    },
-                    child: CombinedImage(
-                      topImagePath: content.topImagePath,
-                      bottomImagePath: content.bottomImagePath,
-                    ),
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 500),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        key: ValueKey<int>(
+          content.hashCode,
+        ),
+        children: [
+          Stack(
+            children: [
+              SizedBox(
+                height: context.screenHeight,
+                child: ShaderMask(
+                  blendMode: BlendMode.dstIn,
+                  shaderCallback: (Rect bounds) {
+                    return const LinearGradient(
+                      colors: [
+                        Colors.black,
+                        Colors.transparent,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ).createShader(bounds);
+                  },
+                  child: CombinedImage(
+                    topImagePath: content.topImagePath,
+                    bottomImagePath: content.bottomImagePath,
                   ),
                 ),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Consumer<ThemeModeProvider>(
-                    builder: (context, themeProvider, child) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Consumer<ThemeModeProvider>(
+                  builder: (context, themeProvider, child) => Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
+                    child: SafeArea(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -79,27 +85,23 @@ class OnBoardingBody extends StatelessWidget {
                             ),
                           ),
                           if (currentIndex == 2)
-                            Column(
-                              children: [
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: AppTextButton(
-                                    text: 'Get started',
-                                    textStyle: context.textTheme.bodyMedium!,
-                                    onPressed: () {},
-                                  ),
-                                ),
-                              ],
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: AppTextButton(
+                                text: 'Get started',
+                                textStyle: context.textTheme.bodyMedium!,
+                                onPressed: () {},
+                              ),
                             ),
                         ],
                       ),
                     ),
                   ),
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
