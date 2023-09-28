@@ -11,7 +11,7 @@ class PageContent extends Equatable {
 
   const PageContent.first()
       : this(
-          title: 'Brand new curriculum',
+          title: 'Welcome to Retro Bank!',
           description:
               'Experience banking the old-school way with a modern twist – '
               'send money through my mobile app!',
