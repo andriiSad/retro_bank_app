@@ -9,27 +9,20 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       final prefs = serviceLocator<SharedPreferences>();
       return _pageBuilder(
         (context) {
-          return BlocProvider(
-            create: (_) => serviceLocator<OnBoardingCubit>(),
-            child: const OnBoardingScreen(),
-          );
-
-          //  else if (serviceLocator<FirebaseAuth>().currentUser != null) {
-          //   final user = serviceLocator<FirebaseAuth>().currentUser!;
-          //   final localUser = LocalUserModel(
-          //     uid: user.uid,
-          //     email: user.email ?? '',
-          //     fullName: user.displayName ?? '',
-          //     points: 0,
-          //   );
-          //   context.userProvider.initUser(localUser);
-          //   return const DashboardScreen();
-          // }
-          // return BlocProvider(
-          //   create: (_) => serviceLocator<AuthBloc>(),
-          //   child: const SignInScreen(),
-          // );
+          if (prefs.getBool(kFirstTimerKey) ?? true) {
+            return BlocProvider(
+              create: (_) => serviceLocator<OnBoardingCubit>(),
+              child: const OnBoardingScreen(),
+            );
+          } else {
+            return const DashboardScreen();
+          }
         },
+        settings: settings,
+      );
+    case DashboardScreen.routeName:
+      return _pageBuilder(
+        (_) => const DashboardScreen(),
         settings: settings,
       );
     // case SignInScreen.routeName:
@@ -48,18 +41,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     //     ),
     //     settings: settings,
     //   );
-    case DashboardScreen.routeName:
-      // return _pageBuilder(
-      //   (_) => BlocProvider(
-      //     create: (_) => serviceLocator<AuthBloc>(),
-      //     child: const DashboardScreen(),
-      //   ),
-      //   settings: settings,
-      // );
-      return _pageBuilder(
-        (_) => const DashboardScreen(),
-        settings: settings,
-      );
 
     // case '/forgot_password':
     //   return _pageBuilder(

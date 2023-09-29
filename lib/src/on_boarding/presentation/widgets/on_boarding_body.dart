@@ -5,6 +5,7 @@ import 'package:retro_bank_app/core/common/app/providers/theme_mode_provider.dar
 import 'package:retro_bank_app/core/common/widgets/app_text_button.dart';
 import 'package:retro_bank_app/core/extensions/context_extension.dart';
 import 'package:retro_bank_app/src/on_boarding/domain/entities/page_content.dart';
+import 'package:retro_bank_app/src/on_boarding/presentation/cubit/on_boarding_cubit.dart';
 import 'package:retro_bank_app/src/on_boarding/presentation/widgets/combined_image.dart';
 
 class OnBoardingBody extends StatefulWidget {
@@ -113,7 +114,11 @@ class _OnBoardingBodyState extends State<OnBoardingBody>
                               child: AppTextButton(
                                 text: 'Get started',
                                 textStyle: context.textTheme.bodyMedium!,
-                                onPressed: () {},
+                                onPressed: () {
+                                  context
+                                      .read<OnBoardingCubit>()
+                                      .cacheFirstTimer();
+                                },
                               ),
                             ),
                         ],

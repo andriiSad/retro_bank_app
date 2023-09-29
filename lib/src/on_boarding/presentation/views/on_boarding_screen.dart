@@ -64,7 +64,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
         body: BlocConsumer<OnBoardingCubit, OnBoardingState>(
           listener: (context, state) {
             if (state is UserCached) {
-              Navigator.pushReplacementNamed(context, '/default');
+              Navigator.pushReplacementNamed(context, '/');
             }
           },
           builder: (context, state) {
@@ -119,7 +119,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                               padding: EdgeInsets.zero,
                               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              context.read<OnBoardingCubit>().cacheFirstTimer();
+                            },
                             child: const Padding(
                               padding: EdgeInsets.symmetric(
                                 horizontal: 5,
