@@ -7,17 +7,40 @@ import 'package:retro_bank_app/core/extensions/context_extension.dart';
 import 'package:retro_bank_app/src/on_boarding/domain/entities/page_content.dart';
 import 'package:retro_bank_app/src/on_boarding/presentation/widgets/combined_image.dart';
 
-class OnBoardingBody extends StatelessWidget {
+class OnBoardingBody extends StatefulWidget {
   const OnBoardingBody({
     required this.content,
-    required this.animation,
     required this.currentIndex,
     super.key,
   });
 
   final PageContent content;
-  final Animation<double> animation;
   final int currentIndex;
+
+  @override
+  State<OnBoardingBody> createState() => _OnBoardingBodyState();
+}
+
+class _OnBoardingBodyState extends State<OnBoardingBody>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+    animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
@@ -25,7 +48,7 @@ class OnBoardingBody extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         key: ValueKey<int>(
-          content.hashCode,
+          widget.content.hashCode,
         ),
         children: [
           Stack(
@@ -45,8 +68,8 @@ class OnBoardingBody extends StatelessWidget {
                     ).createShader(bounds);
                   },
                   child: CombinedImage(
-                    topImagePath: content.topImagePath,
-                    bottomImagePath: content.bottomImagePath,
+                    topImagePath: widget.content.topImagePath,
+                    bottomImagePath: widget.content.bottomImagePath,
                   ),
                 ),
               ),
@@ -65,9 +88,9 @@ class OnBoardingBody extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           FadeTransition(
-                            opacity: animation,
+                            opacity: animationController,
                             child: Text(
-                              content.title,
+                              widget.content.title,
                               key: const ValueKey<String>('title'),
                               style: context.textTheme.titleLarge!
                                   .copyWith(color: Colors.white),
@@ -76,15 +99,15 @@ class OnBoardingBody extends StatelessWidget {
                           ),
                           const Gap(5),
                           FadeTransition(
-                            opacity: animation,
+                            opacity: animationController,
                             child: Text(
-                              content.description,
+                              widget.content.description,
                               key: const ValueKey<String>('description'),
                               style: context.textTheme.bodyMedium!
                                   .copyWith(color: Colors.white),
                             ),
                           ),
-                          if (currentIndex == 2)
+                          if (widget.currentIndex == 2)
                             Align(
                               alignment: Alignment.centerRight,
                               child: AppTextButton(

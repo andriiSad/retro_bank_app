@@ -25,24 +25,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
   ];
   late int currentIndex;
   bool isSwiping = false; // Flag to control swiping direction
-  late AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
     currentIndex = 0;
     context.read<OnBoardingCubit>().checkIfUserIsFirstTimer();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 500),
-    );
-    _animationController.forward();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
   }
 
   @override
@@ -53,7 +41,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
           isSwiping = true;
           if (details.delta.dx > 0) {
             if (currentIndex > 0) {
-              _animationController.forward();
               setState(() {
                 currentIndex = currentIndex - 1;
               });
@@ -61,8 +48,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
           }
           if (details.delta.dx < 0) {
             if (currentIndex < _pageContents.length - 1) {
-              _animationController.forward();
-
               setState(() {
                 currentIndex = currentIndex + 1;
               });
@@ -93,7 +78,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                 children: [
                   OnBoardingBody(
                     content: _pageContents[currentIndex],
-                    animation: _animationController,
                     currentIndex: currentIndex,
                   ),
                   Align(

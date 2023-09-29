@@ -1,46 +1,98 @@
 import 'package:flutter/material.dart';
 
-class CombinedImage extends StatelessWidget {
+class CombinedImage extends StatefulWidget {
   const CombinedImage({
     required this.topImagePath,
     required this.bottomImagePath,
     this.imageSeparationIndex = 0.7,
     super.key,
   });
+
   final String topImagePath;
   final String bottomImagePath;
   final double imageSeparationIndex;
 
   @override
+  State<CombinedImage> createState() => _CombinedImageState();
+}
+
+class _CombinedImageState extends State<CombinedImage>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+    animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
+      key: ValueKey<int>(
+        widget.topImagePath.hashCode,
+      ),
       children: [
-        ClipPath(
-          clipper: TopDiagonalClipper(
-            imageSeparationIndex,
-          ),
-          child: Image.asset(
-            topImagePath,
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
+        AnimatedBuilder(
+          animation: animationController,
+          builder: (_, child) {
+            return SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(-1, 0),
+                end: Offset.zero,
+              ).animate(animationController),
+              child: child,
+            );
+          },
+          child: ClipPath(
+            clipper: TopDiagonalClipper(
+              widget.imageSeparationIndex,
+            ),
+            child: Image.asset(
+              widget.topImagePath,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+            ),
           ),
         ),
-        ClipPath(
-          clipper: BottomDiagonalClipper(
-            imageSeparationIndex,
-          ),
-          child: Image.asset(
-            bottomImagePath,
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
+        AnimatedBuilder(
+          animation: animationController,
+          builder: (context, child) {
+            return SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(1, 0),
+                end: Offset.zero,
+              ).animate(animationController),
+              child: child,
+            );
+          },
+          child: ClipPath(
+            clipper: BottomDiagonalClipper(
+              widget.imageSeparationIndex,
+            ),
+            child: Image.asset(
+              widget.bottomImagePath,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+            ),
           ),
         ),
         CustomPaint(
           size: const Size(double.maxFinite, double.maxFinite),
           painter: DiagonalLinePainter(
-            imageSeparationIndex,
+            widget.imageSeparationIndex,
           ),
         ),
       ],
