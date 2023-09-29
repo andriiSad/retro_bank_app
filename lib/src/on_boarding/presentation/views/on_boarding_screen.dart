@@ -2,6 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:retro_bank_app/core/common/views/loading_view.dart';
+import 'package:retro_bank_app/core/utils/constants.dart';
 import 'package:retro_bank_app/src/on_boarding/domain/entities/page_content.dart';
 import 'package:retro_bank_app/src/on_boarding/presentation/cubit/on_boarding_cubit.dart';
 import 'package:retro_bank_app/src/on_boarding/presentation/widgets/on_boarding_body.dart';
@@ -10,7 +11,6 @@ class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
 
   static const routeName = '/on_boarding';
-  static const double swipeThreshold = 100;
 
   @override
   State<OnBoardingScreen> createState() => _OnBoardingScreenState();
@@ -23,6 +23,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
     const PageContent.second(),
     const PageContent.third(),
   ];
+
   late int currentIndex;
   bool isSwiping = false; // Flag to control swiping direction
 
@@ -39,19 +40,19 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
       onPanUpdate: (details) {
         if (!isSwiping) {
           isSwiping = true;
-          if (details.delta.dx > 0) {
-            if (currentIndex > 0) {
-              setState(() {
-                currentIndex = currentIndex - 1;
-              });
-            }
+          var newIndex = currentIndex;
+
+          if (details.delta.dx > 0 && currentIndex > 0) {
+            newIndex = currentIndex - 1;
+          } else if (details.delta.dx < 0 &&
+              currentIndex < _pageContents.length - 1) {
+            newIndex = currentIndex + 1;
           }
-          if (details.delta.dx < 0) {
-            if (currentIndex < _pageContents.length - 1) {
-              setState(() {
-                currentIndex = currentIndex + 1;
-              });
-            }
+
+          if (newIndex != currentIndex) {
+            setState(() {
+              currentIndex = newIndex;
+            });
           }
         }
       },
@@ -69,10 +70,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
           builder: (context, state) {
             if (state is CheckingIfUserIsFirstTimer) {
               return const LoadingView(
-                title: 'Checking if user is first timer',
+                title: checkingUserMessage,
               );
             } else if (state is CachingFirstTimer) {
-              return const LoadingView(title: 'Caching first timer');
+              return const LoadingView(title: cachingMessage);
             } else {
               return Stack(
                 children: [
