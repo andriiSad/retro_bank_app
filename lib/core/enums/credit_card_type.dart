@@ -1,0 +1,4 @@
+enum CreditCardType {
+  premium,
+  platinum,
+}
