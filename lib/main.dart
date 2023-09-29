@@ -1,8 +1,10 @@
 // import 'package:firebase_core/firebase_core.dart';
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:retro_bank_app/core/common/app/providers/theme_mode_provider.dart';
 import 'package:retro_bank_app/core/extensions/context_extension.dart';
+import 'package:retro_bank_app/core/services/bloc_observer.dart';
 import 'package:retro_bank_app/core/services/injection_container/injection_container.dart';
 import 'package:retro_bank_app/core/services/router/router.dart';
 import 'package:retro_bank_app/core/theme/theme.dart';
@@ -14,6 +16,8 @@ Future<void> main() async {
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
+
+  Bloc.observer = const AppBlocObserver();
 
   //init service locator
   await init();
