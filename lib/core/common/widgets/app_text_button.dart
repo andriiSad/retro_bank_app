@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:retro_bank_app/core/extensions/context_extension.dart';
 
 class AppTextButton extends StatefulWidget {
   const AppTextButton({
@@ -8,6 +7,7 @@ class AppTextButton extends StatefulWidget {
     required this.onPressed,
     super.key,
   });
+
   final String text;
   final TextStyle textStyle;
   final void Function()? onPressed;
@@ -17,40 +17,55 @@ class AppTextButton extends StatefulWidget {
 }
 
 class _AppTextButtonState extends State<AppTextButton> {
+  bool isPressed = false;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(10),
-        ),
-        color: Colors.black,
-        border: Border.all(
-          color: Colors.white,
-        ),
-        boxShadow: const [
-          BoxShadow(
+    return Transform.translate(
+      offset: isPressed ? const Offset(3, 4) : Offset.zero,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(10),
+          ),
+          color: Colors.black,
+          border: Border.all(
             color: Colors.white,
-            offset: Offset(3, 4),
           ),
-        ],
-      ),
-      child: TextButton(
-        onPressed: widget.onPressed,
-        style: TextButton.styleFrom(
-          minimumSize: Size.zero,
-          padding: EdgeInsets.zero,
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          boxShadow: [
+            BoxShadow(
+              color: isPressed ? Colors.transparent : Colors.white,
+              offset: isPressed ? Offset.zero : const Offset(3, 4),
+            ),
+          ],
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 5,
-            vertical: 7,
-          ),
-          child: Text(
-            widget.text,
-            style: context.textTheme.bodyMedium!.copyWith(
-              color: Colors.white,
+        child: InkWell(
+          onTapDown: (_) {
+            setState(() {
+              isPressed = true;
+            });
+          },
+          onTapUp: (_) {
+            setState(() {
+              isPressed = false;
+            });
+          },
+          onTapCancel: () {
+            setState(() {
+              isPressed = false;
+            });
+          },
+          onTap: widget.onPressed,
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 5,
+              vertical: 7,
+            ),
+            child: Text(
+              widget.text,
+              style: widget.textStyle.copyWith(
+                color: Colors.white,
+              ),
             ),
           ),
         ),
