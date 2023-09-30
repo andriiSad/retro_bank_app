@@ -4,32 +4,34 @@ import 'package:retro_bank_app/src/auth/domain/entities/credit_card.dart';
 
 class LocalUser extends Equatable {
   LocalUser({
-    required this.uid,
+    required this.id,
     required this.email,
-    required this.displayName,
-    this.cards = const [],
-    this.prifilePic,
+    required this.username,
+    required this.cards,
+    required this.photoUrl,
   }) : totalBalance = cards.totalBalance;
 
   factory LocalUser.empty() => LocalUser(
-        uid: '_empty.uid',
+        id: '_empty.id',
         email: '_empty.email',
-        displayName: '_empty.displayName',
+        username: '_empty.username',
+        cards: const [],
+        photoUrl: null,
       );
 
-  final String uid;
+  final String id;
   final String email;
-  final String displayName;
+  final String username;
   final List<CreditCard> cards;
-  final String? prifilePic;
+  final String? photoUrl;
   final int totalBalance;
 
   @override
-  List<Object?> get props => [uid, email, displayName, cards, prifilePic];
+  List<Object?> get props => [id, email, username, cards, photoUrl];
 
   @override
   String toString() {
-    return 'LocalUser(uid: $uid, email: $email, displayName: $displayName, '
-        'cards: $cards)';
+    return 'LocalUser(id: $id, email: $email, username: $username, '
+        'cards: $cards), photoUrl: $photoUrl';
   }
 }

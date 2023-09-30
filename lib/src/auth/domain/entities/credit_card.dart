@@ -18,6 +18,20 @@ class CreditCard extends Equatable {
     );
   }
 
+  CreditCard copyWith({
+    String? cardId,
+    String? ownerId,
+    int? balance,
+    CreditCardType? type,
+  }) {
+    return CreditCard(
+      cardId: cardId ?? this.cardId,
+      ownerId: ownerId ?? this.ownerId,
+      balance: balance ?? this.balance,
+      type: type ?? this.type,
+    );
+  }
+
   final String cardId;
   final String ownerId;
   final CreditCardType type;
