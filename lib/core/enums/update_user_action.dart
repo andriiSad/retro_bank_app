@@ -1,5 +1,5 @@
 enum UpdateUserAction {
-  displayName,
+  username,
   email,
   password,
   profilePic,
