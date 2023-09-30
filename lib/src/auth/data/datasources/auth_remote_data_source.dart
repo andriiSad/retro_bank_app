@@ -69,7 +69,7 @@ class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
 
   @override
   Future<void> updateUser({
-    required userData,
+    required dynamic userData,
     required UpdateUserAction action,
   }) {
     // TODO: implement updateUser
