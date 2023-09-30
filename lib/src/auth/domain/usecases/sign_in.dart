@@ -32,5 +32,5 @@ class SignInParams extends Equatable {
   final String password;
 
   @override
-  List<Object?> get props => [email, password];
+  List<String> get props => [email, password];
 }

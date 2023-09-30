@@ -35,5 +35,5 @@ class SignUpParams extends Equatable {
   final String fullName;
 
   @override
-  List<Object?> get props => [email, password, fullName];
+  List<String> get props => [email, password, fullName];
 }
