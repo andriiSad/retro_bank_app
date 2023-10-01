@@ -22,10 +22,9 @@ class ForgotPasswordParams extends Equatable {
     required this.email,
   });
 
-  const ForgotPasswordParams.empty()
-      : this(
-          email: '_empty.email',
-        );
+  factory ForgotPasswordParams.empty() => const ForgotPasswordParams(
+        email: '_empty.email',
+      );
 
   final String email;
 

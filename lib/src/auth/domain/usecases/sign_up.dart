@@ -12,7 +12,7 @@ class SignUp extends UsecaseWithParams<void, SignUpParams> {
   ResultVoid call(SignUpParams params) async => _repository.signUp(
         email: params.email,
         password: params.password,
-        fullName: params.fullName,
+        username: params.username,
       );
 }
 
@@ -20,20 +20,19 @@ class SignUpParams extends Equatable {
   const SignUpParams({
     required this.email,
     required this.password,
-    required this.fullName,
+    required this.username,
   });
 
-  const SignUpParams.empty()
-      : this(
-          email: '_empty.email',
-          password: '_empty.password',
-          fullName: '_empty.fullName',
-        );
+  factory SignUpParams.empty() => const SignUpParams(
+        email: '_empty.email',
+        password: '_empty.password',
+        username: '_empty.username',
+      );
 
   final String email;
   final String password;
-  final String fullName;
+  final String username;
 
   @override
-  List<String> get props => [email, password, fullName];
+  List<String> get props => [email, password, username];
 }

@@ -18,20 +18,6 @@ class CreditCard extends Equatable {
     );
   }
 
-  CreditCard copyWith({
-    String? cardId,
-    String? ownerId,
-    int? balance,
-    CreditCardType? type,
-  }) {
-    return CreditCard(
-      cardId: cardId ?? this.cardId,
-      ownerId: ownerId ?? this.ownerId,
-      balance: balance ?? this.balance,
-      type: type ?? this.type,
-    );
-  }
-
   final String cardId;
   final String ownerId;
   final CreditCardType type;
@@ -39,10 +25,4 @@ class CreditCard extends Equatable {
 
   @override
   List<Object?> get props => [cardId, ownerId, balance, type];
-
-  @override
-  String toString() {
-    return 'CreditCard(cardId: $cardId, ownerId: $ownerId, '
-        'balance: $balance, type: $type)';
-  }
 }

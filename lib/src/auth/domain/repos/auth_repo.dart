@@ -11,7 +11,7 @@ abstract class IAuthRepo {
   ResultVoid signUp({
     required String email,
     required String password,
-    required String fullName,
+    required String username,
   });
 
   ResultVoid forgotPassword({
