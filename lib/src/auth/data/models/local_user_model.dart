@@ -7,9 +7,11 @@ class LocalUserModel extends LocalUser {
     required super.id,
     required super.email,
     required super.username,
-    required super.cards,
+    required this.cards,
     required super.photoUrl,
-  });
+  }) : super(
+          cards: cards,
+        );
 
   factory LocalUserModel.empty() => LocalUserModel(
         id: '_empty.id',
@@ -28,13 +30,16 @@ class LocalUserModel extends LocalUser {
             .toList(),
         photoUrl: map['photoUrl'] as String?,
       );
+//TODO(fix this type)
+  @override
+  // ignore: overridden_fields
+  final List<CreditCardModel> cards;
 
   DataMap toMap() => {
         'id': id,
         'email': email,
         'username': username,
-        'cards':
-            cards.map((card) => (card as CreditCardModel).toMap()).toList(),
+        'cards': cards.map((card) => card.toMap()).toList(),
         'photoUrl': photoUrl,
       };
 
