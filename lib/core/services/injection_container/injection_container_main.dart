@@ -10,55 +10,55 @@ Future<void> init() async {
   // Feature  => OnBoarding
 
   await _initOnBoarding(prefs);
-  // await _initAuth();
+  await _initAuth();
 }
 
-// Future<void> _initAuth() async {
-//   serviceLocator
-//     //Buisness Logic
-//     ..registerFactory(
-//       () => AuthBloc(
-//         signIn: serviceLocator(),
-//         signUp: serviceLocator(),
-//         forgotPassword: serviceLocator(),
-//         updateUser: serviceLocator(),
-//         signOut: serviceLocator(),
-//       ),
-//     )
+Future<void> _initAuth() async {
+  serviceLocator
+    //Buisness Logic
+    ..registerFactory(
+      () => AuthBloc(
+        signIn: serviceLocator(),
+        signUp: serviceLocator(),
+        forgotPassword: serviceLocator(),
+        updateUser: serviceLocator(),
+        signOut: serviceLocator(),
+      ),
+    )
 
-//     //Use cases
-//     ..registerLazySingleton(() => SignIn(serviceLocator()))
-//     ..registerLazySingleton(() => SignUp(serviceLocator()))
-//     ..registerLazySingleton(() => ForgotPassword(serviceLocator()))
-//     ..registerLazySingleton(() => UpdateUser(serviceLocator()))
-//     ..registerLazySingleton(() => SignOut(serviceLocator()))
+    //Use cases
+    ..registerLazySingleton(() => SignIn(serviceLocator()))
+    ..registerLazySingleton(() => SignUp(serviceLocator()))
+    ..registerLazySingleton(() => ForgotPassword(serviceLocator()))
+    ..registerLazySingleton(() => UpdateUser(serviceLocator()))
+    ..registerLazySingleton(() => SignOut(serviceLocator()))
 
-//     //Repositories
-//     //because we register interface but passing impl, we specify type
-//     ..registerLazySingleton<IAuthRepo>(
-//       () => AuthRepoImpl(serviceLocator()),
-//     )
+    //Repositories
+    //because we register interface but passing impl, we specify type
+    ..registerLazySingleton<IAuthRepo>(
+      () => AuthRepoImpl(serviceLocator()),
+    )
 
-//     //Data Sources
-//     ..registerLazySingleton<IAuthRemoteDataSource>(
-//       () => AuthRemoteDataSourceImpl(
-//         authClient: serviceLocator(),
-//         cloudStoreClient: serviceLocator(),
-//         dbClient: serviceLocator(),
-//       ),
-//     )
+    //Data Sources
+    ..registerLazySingleton<IAuthRemoteDataSource>(
+      () => AuthRemoteDataSourceImpl(
+        authClient: serviceLocator(),
+        cloudStoreClient: serviceLocator(),
+        dbClient: serviceLocator(),
+      ),
+    )
 
-//     //External Dependencies
-//     ..registerLazySingleton(
-//       () => FirebaseAuth.instance,
-//     )
-//     ..registerLazySingleton(
-//       () => FirebaseFirestore.instance,
-//     )
-//     ..registerLazySingleton(
-//       () => FirebaseStorage.instance,
-//     );
-// }
+    //External Dependencies
+    ..registerLazySingleton(
+      () => FirebaseAuth.instance,
+    )
+    ..registerLazySingleton(
+      () => FirebaseFirestore.instance,
+    )
+    ..registerLazySingleton(
+      () => FirebaseStorage.instance,
+    );
+}
 
 Future<void> _initOnBoarding(SharedPreferences prefs) async {
   serviceLocator
