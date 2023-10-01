@@ -17,7 +17,7 @@ void main() {
     message: 'Server Failure',
     statusCode: 500,
   );
-  const params = SignInParams.empty();
+  final params = SignInParams.empty();
 
   setUp(() {
     repository = MockAuthRepo();

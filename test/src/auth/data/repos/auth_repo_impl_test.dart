@@ -23,7 +23,7 @@ void main() {
   });
 
   group('signIn', () {
-    const params = SignInParams.empty();
+    final params = SignInParams.empty();
     final tUserModel = LocalUserModel.empty();
     const tException = ServerException(
       message: 'Unknown error occurred',
@@ -101,7 +101,7 @@ void main() {
     );
   });
   group('signUp', () {
-    const params = SignUpParams.empty();
+    final params = SignUpParams.empty();
     const tException = ServerException(
       message: 'Unknown error occurred',
       statusCode: '500',
@@ -115,7 +115,7 @@ void main() {
           () => remoteDataSource.signUp(
             email: any(named: 'email'),
             password: any(named: 'password'),
-            fullName: any(named: 'fullName'),
+            username: any(named: 'username'),
           ),
         ).thenAnswer((_) async => {});
 
@@ -123,7 +123,7 @@ void main() {
         final result = await repoImpl.signUp(
           email: params.email,
           password: params.password,
-          fullName: params.fullName,
+          username: params.username,
         );
 
         //assert
@@ -134,7 +134,7 @@ void main() {
           () => remoteDataSource.signUp(
             email: params.email,
             password: params.password,
-            fullName: params.fullName,
+            username: params.username,
           ),
         ).called(1);
         verifyNoMoreInteractions(remoteDataSource);
@@ -149,7 +149,7 @@ void main() {
           () => remoteDataSource.signUp(
             email: any(named: 'email'),
             password: any(named: 'password'),
-            fullName: any(named: 'fullName'),
+            username: any(named: 'username'),
           ),
         ).thenThrow(tException);
 
@@ -157,7 +157,7 @@ void main() {
         final result = await repoImpl.signUp(
           email: params.email,
           password: params.password,
-          fullName: params.fullName,
+          username: params.username,
         );
 
         //assert
@@ -175,7 +175,7 @@ void main() {
           () => remoteDataSource.signUp(
             email: params.email,
             password: params.password,
-            fullName: params.fullName,
+            username: params.username,
           ),
         ).called(1);
 
@@ -184,7 +184,7 @@ void main() {
     );
   });
   group('forgotPassword', () {
-    const params = ForgotPasswordParams.empty();
+    final params = ForgotPasswordParams.empty();
     const tException = ServerException(
       message: 'Unknown error occurred',
       statusCode: '500',
@@ -255,7 +255,7 @@ void main() {
     );
   });
   group('updateUser', () {
-    const params = UpdateUserParams.empty();
+    final params = UpdateUserParams.empty();
     const tException = ServerException(
       message: 'Unknown error occurred',
       statusCode: '500',

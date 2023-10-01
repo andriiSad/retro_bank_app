@@ -11,7 +11,7 @@ void main() {
   late IAuthRepo repository;
   late UpdateUser usecase;
 
-  const params = UpdateUserParams.empty();
+  final params = UpdateUserParams.empty();
   const tFailure = ServerFailure(
     message: 'Server Failure',
     statusCode: 500,

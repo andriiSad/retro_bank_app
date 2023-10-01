@@ -11,7 +11,7 @@ void main() {
   late IAuthRepo repository;
   late ForgotPassword usecase;
 
-  const params = ForgotPasswordParams.empty();
+  final params = ForgotPasswordParams.empty();
   const tFailure = ServerFailure(
     message: 'Server Failure',
     statusCode: 500,

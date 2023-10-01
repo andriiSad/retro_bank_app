@@ -11,7 +11,7 @@ void main() {
   late IAuthRepo repository;
   late SignUp usecase;
 
-  const params = SignUpParams.empty();
+  final params = SignUpParams.empty();
   const tFailure = ServerFailure(
     message: 'Server Failure',
     statusCode: 500,
@@ -32,7 +32,7 @@ void main() {
           () => repository.signUp(
             email: any(named: 'email'),
             password: any(named: 'password'),
-            fullName: any(named: 'fullName'),
+            username: any(named: 'username'),
           ),
         ).thenAnswer((_) async => const Right(null));
 
@@ -46,7 +46,7 @@ void main() {
           () => repository.signUp(
             email: params.email,
             password: params.password,
-            fullName: params.fullName,
+            username: params.username,
           ),
         ).called(1);
 
@@ -63,7 +63,7 @@ void main() {
           () => repository.signUp(
             email: any(named: 'email'),
             password: any(named: 'password'),
-            fullName: any(named: 'fullName'),
+            username: any(named: 'username'),
           ),
         ).thenAnswer((_) async => const Left(tFailure));
 
@@ -77,7 +77,7 @@ void main() {
           () => repository.signUp(
             email: params.email,
             password: params.password,
-            fullName: params.fullName,
+            username: params.username,
           ),
         ).called(1);
 
