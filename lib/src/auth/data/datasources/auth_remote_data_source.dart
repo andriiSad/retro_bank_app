@@ -144,7 +144,6 @@ class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
 
       await _setUserData(_authClient.currentUser!, email);
     } on FirebaseAuthException catch (e) {
-      print(e);
       throw ServerException(
         message: e.message ?? 'Error Occured',
         statusCode: e.code,

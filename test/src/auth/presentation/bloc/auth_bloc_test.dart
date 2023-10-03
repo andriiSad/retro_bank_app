@@ -267,7 +267,6 @@ void main() {
     test(
       'should throw AssertionError when userData is neither String nor File',
       () {
-        // Use a function that throws when you try to create the event with invalid data
         expect(
           () => UpdateUserEvent(
             userData: 123, // Invalid data, should trigger the assertion
