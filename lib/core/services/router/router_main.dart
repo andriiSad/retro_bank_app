@@ -21,7 +21,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
               email: user.email ?? '',
               username: user.displayName ?? '',
               photoUrl: user.photoURL ?? '',
-              cards: const [],
             );
             context.userProvider.initUser(localUser);
             return BlocProvider(
