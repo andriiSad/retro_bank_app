@@ -175,8 +175,6 @@ void main() {
           userCredential.user!.uid,
         );
 
-        expect(result.cards, tUser.cards);
-
         verify(
           () => authClient.signInWithEmailAndPassword(
             email: tEmail,

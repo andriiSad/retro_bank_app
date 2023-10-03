@@ -10,7 +10,6 @@ import 'package:retro_bank_app/core/enums/update_user_action.dart';
 import 'package:retro_bank_app/core/errors/exceptions.dart';
 import 'package:retro_bank_app/core/utils/constants.dart';
 import 'package:retro_bank_app/core/utils/typedefs.dart';
-import 'package:retro_bank_app/src/auth/data/models/credit_card_model.dart';
 import 'package:retro_bank_app/src/auth/data/models/local_user_model.dart';
 
 abstract class IAuthRemoteDataSource {
@@ -225,14 +224,8 @@ class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
           LocalUserModel(
             id: user.uid,
             email: user.email ?? fallbackEmail,
-            username: user.displayName ?? 'Anonymous',
+            username: user.displayName ?? 'Default Name',
             photoUrl: user.photoURL,
-            cards: [
-              CreditCardModel.generateNew(
-                cardId: generateCardId(),
-                ownerId: user.uid,
-              ),
-            ],
           ).toMap(),
         );
   }

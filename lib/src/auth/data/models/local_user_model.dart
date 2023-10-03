@@ -1,23 +1,18 @@
 import 'package:retro_bank_app/core/utils/typedefs.dart';
-import 'package:retro_bank_app/src/auth/data/models/credit_card_model.dart';
 import 'package:retro_bank_app/src/auth/domain/entities/local_user.dart';
 
 class LocalUserModel extends LocalUser {
-  LocalUserModel({
+  const LocalUserModel({
     required super.id,
     required super.email,
     required super.username,
-    required this.cards,
     required super.photoUrl,
-  }) : super(
-          cards: cards,
-        );
+  });
 
-  factory LocalUserModel.empty() => LocalUserModel(
+  factory LocalUserModel.empty() => const LocalUserModel(
         id: '_empty.id',
         email: '_empty.email',
         username: '_empty.username',
-        cards: const [],
         photoUrl: null,
       );
 
@@ -25,21 +20,13 @@ class LocalUserModel extends LocalUser {
         id: map['id'] as String,
         email: map['email'] as String,
         username: map['username'] as String,
-        cards: (map['cards'] as List<dynamic>)
-            .map((card) => CreditCardModel.fromMap(card as DataMap))
-            .toList(),
         photoUrl: map['photoUrl'] as String?,
       );
-//TODO(fix this type)
-  @override
-  // ignore: overridden_fields
-  final List<CreditCardModel> cards;
 
   DataMap toMap() => {
         'id': id,
         'email': email,
         'username': username,
-        'cards': cards.map((card) => card.toMap()).toList(),
         'photoUrl': photoUrl,
       };
 
@@ -47,14 +34,12 @@ class LocalUserModel extends LocalUser {
     String? id,
     String? email,
     String? username,
-    List<CreditCardModel>? cards,
     String? photoUrl,
   }) {
     return LocalUserModel(
       id: id ?? this.id,
       email: email ?? this.email,
       username: username ?? this.username,
-      cards: cards ?? this.cards,
       photoUrl: photoUrl ?? this.photoUrl,
     );
   }

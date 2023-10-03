@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:retro_bank_app/core/utils/typedefs.dart';
-import 'package:retro_bank_app/src/auth/data/models/credit_card_model.dart';
 import 'package:retro_bank_app/src/auth/data/models/local_user_model.dart';
 import 'package:retro_bank_app/src/auth/domain/entities/local_user.dart';
 
@@ -77,21 +76,6 @@ void main() {
       //expect
       expect(updatedModel, isNot(same(tModel)));
       expect(updatedModel.username, updatedUsername);
-      expect(updatedModel.id, tModel.id);
-      expect(updatedModel.email, tModel.email);
-      expect(updatedModel.cards, tModel.cards);
-    });
-    test('should create a new [LocalUserModel] with updated cards', () {
-      //arrange
-      final updatedCards = [CreditCardModel.empty()];
-
-      //act
-      final updatedModel = tModel.copyWith(cards: updatedCards);
-
-      //expect
-      expect(updatedModel, isNot(same(tModel)));
-      expect(updatedModel.cards, updatedCards);
-      expect(updatedModel.username, tModel.username);
       expect(updatedModel.id, tModel.id);
       expect(updatedModel.email, tModel.email);
     });
