@@ -6,10 +6,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:retro_bank_app/core/enums/credit_card_type.dart';
 import 'package:retro_bank_app/core/enums/update_user_action.dart';
 import 'package:retro_bank_app/core/errors/exceptions.dart';
-import 'package:retro_bank_app/core/utils/constants.dart';
 import 'package:retro_bank_app/core/utils/typedefs.dart';
+import 'package:retro_bank_app/src/auth/data/models/credit_card_model.dart';
 import 'package:retro_bank_app/src/auth/data/models/local_user_model.dart';
 
 abstract class IAuthRemoteDataSource {
@@ -21,6 +22,7 @@ abstract class IAuthRemoteDataSource {
     required String email,
     required String password,
     required String username,
+    String? photoUrl,
   });
   Future<void> forgotPassword({
     required String email,
@@ -55,7 +57,6 @@ class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
         email: email,
         password: password,
       );
-
       final user = result.user;
 
       if (user == null) {
@@ -130,6 +131,7 @@ class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
     required String email,
     required String password,
     required String username,
+    String? photoUrl,
   }) async {
     try {
       final userCred = await _authClient.createUserWithEmailAndPassword(
@@ -139,8 +141,23 @@ class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
 
       await userCred.user?.updateDisplayName(username);
 
-      await userCred.user?.updatePhotoURL(kDefaultAvatar);
+      await userCred.user?.updatePhotoURL(photoUrl);
 
+      await _addNewCreditCard(
+        balance: 10000,
+        type: CreditCardType.platinum,
+      );
+      await _addNewCreditCard(
+        balance: 5000,
+        type: CreditCardType.premium,
+      );
+
+      // if (photoUrl != null) {
+      //   await updateUser(
+      //     action: UpdateUserAction.profilePic,
+      //     userData: photoUrl,
+      //   );
+      // }
       await _setUserData(_authClient.currentUser!, email);
     } on FirebaseAuthException catch (e) {
       throw ServerException(
@@ -237,6 +254,33 @@ class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
           _authClient.currentUser!.uid,
         )
         .update(data);
+  }
+
+  Future<void> _addNewCreditCard({
+    required int balance,
+    required CreditCardType type,
+  }) async {
+    String cardId;
+
+    // Loop until a unique cardId is generated
+    do {
+      cardId = generateCardId();
+    } while (await _isCardIdExists(cardId));
+
+    await _cloudStoreClient.collection('cards').doc(cardId).set(
+          CreditCardModel(
+            cardId: cardId,
+            ownerId: _authClient.currentUser!.uid,
+            balance: balance,
+            type: type,
+          ).toMap(),
+        );
+  }
+
+  Future<bool> _isCardIdExists(String cardId) async {
+    final cardSnapshot =
+        await _cloudStoreClient.collection('cards').doc(cardId).get();
+    return cardSnapshot.exists;
   }
 
   String generateCardId() {

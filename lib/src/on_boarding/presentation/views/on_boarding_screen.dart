@@ -94,12 +94,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                         ),
                         activeColor: Colors.white,
                       ),
-                      //TODO(remove or find how to remove splash)
-                      // onTap: (position) {
-                      //   setState(() {
-                      //     currentIndex = position;
-                      //   });
-                      // },
                     ),
                   ),
                   SafeArea(

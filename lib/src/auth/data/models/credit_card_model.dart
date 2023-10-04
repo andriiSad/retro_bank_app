@@ -16,16 +16,6 @@ class CreditCardModel extends CreditCard {
         balance: 0,
         type: CreditCardType.premium,
       );
-  factory CreditCardModel.generateNew({
-    required String cardId,
-    required String ownerId,
-  }) =>
-      CreditCardModel(
-        cardId: cardId,
-        ownerId: ownerId,
-        balance: 10000,
-        type: CreditCardType.premium,
-      );
 
   factory CreditCardModel.fromMap(DataMap map) => CreditCardModel(
         cardId: map['cardId'] as String,

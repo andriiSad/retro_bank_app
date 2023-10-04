@@ -18,9 +18,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
             final user = serviceLocator<FirebaseAuth>().currentUser!;
             final localUser = LocalUserModel(
               id: user.uid,
-              email: user.email ?? '',
-              username: user.displayName ?? '',
-              photoUrl: user.photoURL ?? '',
+              email: user.email!,
+              username: user.displayName!,
+              photoUrl: user.photoURL,
             );
             context.userProvider.initUser(localUser);
             return BlocProvider(

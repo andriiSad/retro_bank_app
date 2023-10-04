@@ -113,7 +113,6 @@ class _OnBoardingBodyState extends State<OnBoardingBody>
                               alignment: Alignment.centerRight,
                               child: AppTextButton(
                                 text: 'Get started',
-                                textStyle: context.textTheme.bodyMedium!,
                                 onPressed: () {
                                   context
                                       .read<OnBoardingCubit>()

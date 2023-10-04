@@ -56,7 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 );
           } else if (state is SignedIn) {
-            context.userProvider.initUser(state.user as LocalUserModel);
+            context.userProvider.user = state.user as LocalUserModel;
             Navigator.of(context)
                 .pushReplacementNamed(DashboardScreen.routeName);
           }
@@ -69,7 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 children: [
                   const Text(
-                    'Easy to learn, discover more skills.',
+                    'Create Your Retro Bank Account',
                     style: TextStyle(
                       fontFamily: Fonts.aeonik,
                       fontSize: 32,
@@ -77,15 +77,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   const Gap(10),
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Sign up for an account!',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
@@ -131,6 +122,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   email: emailController.text.trim(),
                                   password: passwordController.text.trim(),
                                   username: usernameController.text.trim(),
+                                  photoUrl: 'TEST URL',
                                 ),
                               );
                         }

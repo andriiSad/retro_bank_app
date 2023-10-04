@@ -33,6 +33,7 @@ class _SignInFormState extends State<SignInForm> {
             controller: widget.emailController,
             hintText: 'Email Address',
             keyboardType: TextInputType.emailAddress,
+            fillColor: Colors.white,
           ),
           const Gap(25),
           AppTextFormField(
@@ -40,6 +41,7 @@ class _SignInFormState extends State<SignInForm> {
             hintText: 'Password',
             obscureText: obscurePassword,
             keyboardType: TextInputType.visiblePassword,
+            fillColor: Colors.white,
             suffixIcon: IconButton(
               icon: Icon(
                 obscurePassword ? IconlyLight.show : IconlyLight.hide,

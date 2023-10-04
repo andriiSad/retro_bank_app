@@ -9,7 +9,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:retro_bank_app/core/enums/update_user_action.dart';
 import 'package:retro_bank_app/core/errors/exceptions.dart';
-import 'package:retro_bank_app/core/utils/constants.dart';
 import 'package:retro_bank_app/core/utils/typedefs.dart';
 import 'package:retro_bank_app/src/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:retro_bank_app/src/auth/data/models/local_user_model.dart';
@@ -310,7 +309,7 @@ void main() {
         ).called(1);
         verify(
           () => userCredential.user!.updatePhotoURL(
-            kDefaultAvatar,
+            null,
           ),
         ).called(1);
 
