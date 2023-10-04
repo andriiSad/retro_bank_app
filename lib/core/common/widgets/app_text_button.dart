@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:retro_bank_app/core/extensions/context_extension.dart';
 
 class AppTextButton extends StatefulWidget {
   const AppTextButton({
     required this.text,
-    required this.textStyle,
     required this.onPressed,
+    this.textColor = Colors.black,
+    this.fillColor = Colors.white,
+    this.shadowColor = Colors.black,
+    this.textStyle,
     super.key,
   });
 
   final String text;
-  final TextStyle textStyle;
+  final Color textColor;
+  final Color fillColor;
+  final Color shadowColor;
+  final TextStyle? textStyle;
   final void Function()? onPressed;
 
   @override
@@ -28,13 +35,14 @@ class _AppTextButtonState extends State<AppTextButton> {
           borderRadius: const BorderRadius.all(
             Radius.circular(10),
           ),
-          color: Colors.black,
+          color: widget.fillColor,
           border: Border.all(
-            color: Colors.white,
+            color: widget.shadowColor,
+            width: 2,
           ),
           boxShadow: [
             BoxShadow(
-              color: isPressed ? Colors.transparent : Colors.white,
+              color: isPressed ? Colors.transparent : widget.shadowColor,
               offset: isPressed ? Offset.zero : const Offset(3, 4),
             ),
           ],
@@ -63,9 +71,10 @@ class _AppTextButtonState extends State<AppTextButton> {
             ),
             child: Text(
               widget.text,
-              style: widget.textStyle.copyWith(
-                color: Colors.white,
-              ),
+              style: widget.textStyle ??
+                  context.textTheme.bodyMedium!
+                      .copyWith(color: widget.textColor),
+              textAlign: TextAlign.center,
             ),
           ),
         ),
