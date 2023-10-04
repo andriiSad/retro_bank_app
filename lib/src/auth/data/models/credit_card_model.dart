@@ -54,4 +54,8 @@ class CreditCardModel extends CreditCard {
       type: type ?? this.type,
     );
   }
+
+  @override
+  String toString() => '$CreditCardModel(cardId: $cardId, ownerId: $ownerId, '
+      'balance: $balance, type: $type)';
 }

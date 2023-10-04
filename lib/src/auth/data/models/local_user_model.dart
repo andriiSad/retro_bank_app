@@ -43,4 +43,9 @@ class LocalUserModel extends LocalUser {
       photoUrl: photoUrl ?? this.photoUrl,
     );
   }
+
+  @override
+  String toString() =>
+      '$LocalUserModel(id: $id, email: $email, username: $username, '
+      'photoUrl: $photoUrl)';
 }
