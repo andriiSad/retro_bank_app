@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:retro_bank_app/core/common/app/providers/cards_provider.dart';
 import 'package:retro_bank_app/core/common/app/providers/theme_mode_provider.dart';
 import 'package:retro_bank_app/core/common/app/providers/user_provider.dart';
 import 'package:retro_bank_app/src/auth/data/models/local_user_model.dart';
@@ -18,6 +19,8 @@ extension ContextExtension on BuildContext {
   ThemeModeProvider get themeProvider => read<ThemeModeProvider>();
 
   UserProvider get userProvider => read<UserProvider>();
+
+  CardsProvider get cardsProvider => read<CardsProvider>();
 
   LocalUserModel? get user => userProvider.user;
 }
