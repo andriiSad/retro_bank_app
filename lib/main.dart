@@ -1,8 +1,10 @@
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:retro_bank_app/core/common/app/providers/cards_provider.dart';
 import 'package:retro_bank_app/core/common/app/providers/theme_mode_provider.dart';
 import 'package:retro_bank_app/core/common/app/providers/user_provider.dart';
 import 'package:retro_bank_app/core/extensions/context_extension.dart';
@@ -20,6 +22,10 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  FirebaseUIAuth.configureProviders([
+    EmailAuthProvider(),
+  ]);
+
   Bloc.observer = const AppBlocObserver();
   //init service locator
   await init();
@@ -28,8 +34,11 @@ Future<void> main() async {
     ChangeNotifierProvider(
       create: (_) => UserProvider(),
       child: ChangeNotifierProvider(
-        create: (_) => ThemeModeProvider(),
-        child: const MainApp(),
+        create: (_) => CardsProvider(),
+        child: ChangeNotifierProvider(
+          create: (_) => ThemeModeProvider(),
+          child: const MainApp(),
+        ),
       ),
     ),
   );
