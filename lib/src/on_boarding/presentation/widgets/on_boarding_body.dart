@@ -113,6 +113,9 @@ class _OnBoardingBodyState extends State<OnBoardingBody>
                               alignment: Alignment.centerRight,
                               child: AppTextButton(
                                 text: 'Get started',
+                                textColor: Colors.white,
+                                fillColor: Colors.black,
+                                shadowColor: Colors.white,
                                 onPressed: () {
                                   context
                                       .read<OnBoardingCubit>()

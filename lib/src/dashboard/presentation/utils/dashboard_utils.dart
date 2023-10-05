@@ -20,7 +20,7 @@ class DashBoardUtils {
           .collection('cards')
           .where(
             'ownerId',
-            isEqualTo: serviceLocator<FirebaseAuth>().currentUser!.uid,
+            isEqualTo: serviceLocator<FirebaseAuth>().currentUser?.uid,
           )
           .snapshots()
           .map((QuerySnapshot querySnapshot) {

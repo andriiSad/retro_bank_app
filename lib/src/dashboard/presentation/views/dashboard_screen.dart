@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:retro_bank_app/core/common/widgets/rounded_button.dart';
 import 'package:retro_bank_app/core/extensions/context_extension.dart';
+import 'package:retro_bank_app/core/extensions/credit_card_extension.dart';
 import 'package:retro_bank_app/core/res/colors.dart';
 import 'package:retro_bank_app/src/auth/data/models/credit_card_model.dart';
 import 'package:retro_bank_app/src/auth/data/models/local_user_model.dart';
@@ -53,7 +54,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       style: const TextStyle(fontSize: 20),
                     ),
                     Text(
-                      cards![0].balance.toString(),
+                      cards?.totalBalance.toString() ?? '',
                       style: const TextStyle(fontSize: 20),
                     ),
                     const Gap(20),
