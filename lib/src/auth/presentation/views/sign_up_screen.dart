@@ -12,7 +12,7 @@ import 'package:retro_bank_app/src/auth/data/models/local_user_model.dart';
 import 'package:retro_bank_app/src/auth/presentation/bloc/auth_bloc.dart';
 import 'package:retro_bank_app/src/auth/presentation/views/sign_in_screen.dart';
 import 'package:retro_bank_app/src/auth/presentation/widgets/sign_up_form.dart';
-import 'package:retro_bank_app/src/dashboard/presentation/views/dashboard_screen.dart';
+import 'package:retro_bank_app/src/dashboard/presentation/dashboard_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

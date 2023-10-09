@@ -13,7 +13,7 @@ import 'package:retro_bank_app/src/auth/data/models/local_user_model.dart';
 import 'package:retro_bank_app/src/auth/presentation/bloc/auth_bloc.dart';
 import 'package:retro_bank_app/src/auth/presentation/views/sign_up_screen.dart';
 import 'package:retro_bank_app/src/auth/presentation/widgets/sign_in_form.dart';
-import 'package:retro_bank_app/src/dashboard/presentation/views/dashboard_screen.dart';
+import 'package:retro_bank_app/src/dashboard/presentation/dashboard_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -82,15 +82,15 @@ class _SignInScreenState extends State<SignInScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             AppSvgButton(
-                              assetPath: MediaRes.appleSignInImage,
+                              path: MediaRes.appleSignInImage,
                               onPressed: () {},
                             ),
                             AppSvgButton(
-                              assetPath: MediaRes.googleSignInImage,
+                              path: MediaRes.googleSignInImage,
                               onPressed: () {},
                             ),
                             AppSvgButton(
-                              assetPath: MediaRes.facebookSignInImage,
+                              path: MediaRes.facebookSignInImage,
                               onPressed: () {},
                             ),
                           ],

@@ -3,19 +3,21 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class AppSvgButton extends StatefulWidget {
   const AppSvgButton({
-    required this.assetPath,
+    required this.path,
     required this.onPressed,
     this.fillColor = Colors.white,
     this.shadowColor = Colors.black,
     this.size = 50.0, // Adjust the size of the circular button
+    this.isNetwork = false,
     super.key,
   });
 
-  final String assetPath;
+  final String path;
   final Color fillColor;
   final Color shadowColor;
   final double size;
   final void Function()? onPressed;
+  final bool isNetwork;
 
   @override
   State<AppSvgButton> createState() => _AppSvgButtonState();
@@ -63,11 +65,17 @@ class _AppSvgButtonState extends State<AppSvgButton> {
           },
           onTap: widget.onPressed,
           child: Center(
-            child: SvgPicture.asset(
-              widget.assetPath,
-              width: 24,
-              height: 24,
-            ),
+            child: widget.isNetwork
+                ? SvgPicture.network(
+                    widget.path,
+                    width: 24,
+                    height: 24,
+                  )
+                : SvgPicture.asset(
+                    widget.path,
+                    width: 24,
+                    height: 24,
+                  ),
           ),
         ),
       ),
