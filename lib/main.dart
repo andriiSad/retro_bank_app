@@ -13,6 +13,7 @@ import 'package:retro_bank_app/core/services/injection_container/injection_conta
 import 'package:retro_bank_app/core/services/router/router.dart';
 import 'package:retro_bank_app/core/theme/theme.dart';
 import 'package:retro_bank_app/firebase_options.dart';
+import 'package:retro_bank_app/src/dashboard/providers/dashboard_controller.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,15 +32,22 @@ Future<void> main() async {
   await init();
 
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => UserProvider(),
-      child: ChangeNotifierProvider(
-        create: (_) => CardsProvider(),
-        child: ChangeNotifierProvider(
-          create: (_) => ThemeModeProvider(),
-          child: const MainApp(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => CardsProvider(),
         ),
-      ),
+        ChangeNotifierProvider(
+          create: (_) => ThemeModeProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => UserProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => DashboardController(),
+        ),
+      ],
+      child: const MainApp(),
     ),
   );
 }
