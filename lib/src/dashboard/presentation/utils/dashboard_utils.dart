@@ -10,7 +10,7 @@ class DashBoardUtils {
   static Stream<LocalUserModel> get userDataStream =>
       serviceLocator<FirebaseFirestore>()
           .collection('users')
-          .doc(serviceLocator<FirebaseAuth>().currentUser!.uid)
+          .doc(serviceLocator<FirebaseAuth>().currentUser?.uid)
           .snapshots()
           .map(
             (snapShot) => LocalUserModel.fromMap(snapShot.data()!),

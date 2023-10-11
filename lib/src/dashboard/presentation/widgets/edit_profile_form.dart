@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:retro_bank_app/core/common/widgets/app_text_button.dart';
 import 'package:retro_bank_app/core/extensions/context_extension.dart';
-import 'package:retro_bank_app/core/extensions/string_extension.dart';
 import 'package:retro_bank_app/src/dashboard/presentation/widgets/edit_profile_form_field.dart';
 
 class EditProfileForm extends StatelessWidget {
@@ -32,7 +32,7 @@ class EditProfileForm extends StatelessWidget {
         EditProfileFormField(
           title: 'EMAIL',
           controller: emailController,
-          hintText: context.user!.email.obscureEmail,
+          hintText: context.user!.email,
         ),
         const Gap(30),
         EditProfileFormField(
@@ -51,6 +51,13 @@ class EditProfileForm extends StatelessWidget {
               readOnly: oldPasswordController.text.isEmpty,
             );
           },
+        ),
+        const Gap(30),
+        Center(
+          child: AppTextButton(
+            text: 'Log out',
+            onPressed: () {},
+          ),
         ),
       ],
     );

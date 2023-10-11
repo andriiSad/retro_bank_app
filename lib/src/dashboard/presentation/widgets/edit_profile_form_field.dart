@@ -34,6 +34,7 @@ class EditProfileFormField extends StatelessWidget {
         const Gap(10),
         AppTextFormField(
           controller: controller,
+          fillColor: Colors.white,
           hintText: hintText,
           readOnly: readOnly,
         ),
