@@ -1,0 +1,9 @@
+{
+    "transactionId": "_empty.transactionId",
+    "amount": 0,
+    "receiverCardId": 0,
+    "receiverCardOwnerId": "_empty.receiverCardOwnerId",
+    "senderCardId": 0,
+    "senderCardOwnerId": "_empty.senderCardOwnerId",
+    "transactionDate": "2023-10-11T15:30:00"
+}
