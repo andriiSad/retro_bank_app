@@ -3,14 +3,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:retro_bank_app/core/common/widgets/gradient_background.dart';
-import 'package:retro_bank_app/core/common/widgets/nested_back_button.dart';
 import 'package:retro_bank_app/core/enums/update_user_action.dart';
 import 'package:retro_bank_app/core/extensions/context_extension.dart';
-import 'package:retro_bank_app/core/res/media_resources.dart';
 import 'package:retro_bank_app/core/utils/core_utils.dart';
 import 'package:retro_bank_app/src/auth/presentation/bloc/auth_bloc.dart';
 import 'package:retro_bank_app/src/dashboard/presentation/widgets/edit_profile_form.dart';
@@ -78,16 +74,12 @@ class _EditProfileViewState extends State<EditProfileView> {
       },
       builder: (context, state) {
         return Scaffold(
-          extendBodyBehindAppBar: true,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.grey[300],
           appBar: AppBar(
-            leading: const NestedBackButton(),
+            backgroundColor: Colors.transparent,
+            centerTitle: true,
             title: const Text(
               'Edit Profile',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 24,
-              ),
             ),
             actions: [
               TextButton(
@@ -168,73 +160,71 @@ class _EditProfileViewState extends State<EditProfileView> {
               ),
             ],
           ),
-          body: GradientBackground(
-            child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              children: [
-                Builder(
-                  builder: (context) {
-                    final user = context.user!;
-                    final userImage =
-                        user.photoUrl == null || user.photoUrl!.isEmpty
-                            ? null
-                            : user.photoUrl;
-                    return Container(
-                      height: 100,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: pickedImage != null
-                              ? FileImage(pickedImage!)
-                              : userImage != null
-                                  ? NetworkImage(userImage)
-                                  : SvgPicture.asset(
-                                      MediaRes.robotAvatar,
-                                    ) as ImageProvider,
-                          fit: BoxFit.cover,
-                          colorFilter: ColorFilter.mode(
-                            Colors.black.withOpacity(0.4),
-                            BlendMode.multiply,
-                          ),
-                        ),
+          body: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            children: [
+              Builder(
+                builder: (context) {
+                  final user = context.user!;
+                  final userImage =
+                      user.photoUrl == null || user.photoUrl!.isEmpty
+                          ? null
+                          : user.photoUrl;
+                  return SizedBox(
+                    height: 100,
+                    width: 100,
+                    // decoration: BoxDecoration(
+                    //   shape: BoxShape.circle,
+                    //   image: DecorationImage(
+                    //     image: pickedImage != null
+                    //         ? FileImage(pickedImage!)
+                    //         : userImage != null
+                    //             ? NetworkImage(userImage)
+                    //             : SvgPicture.asset(
+                    //                 MediaRes.robotAvatar,
+                    //               ) as ImageProvider,
+                    //     fit: BoxFit.cover,
+                    //     colorFilter: ColorFilter.mode(
+                    //       Colors.black.withOpacity(0.4),
+                    //       BlendMode.multiply,
+                    //     ),
+                    //   ),
+                    // ),
+                    child: IconButton(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onPressed: pickImage,
+                      icon: Icon(
+                        pickedImage != null || user.photoUrl != null
+                            ? Icons.edit
+                            : Icons.add_a_photo,
+                        color: Colors.white,
                       ),
-                      child: IconButton(
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onPressed: pickImage,
-                        icon: Icon(
-                          pickedImage != null || user.photoUrl != null
-                              ? Icons.edit
-                              : Icons.add_a_photo,
-                          color: Colors.white,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const Gap(10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    'We recomend an image of at least 400x400',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey[700],
-                      fontWeight: FontWeight.w400,
                     ),
+                  );
+                },
+              ),
+              const Gap(10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  'We recomend an image of at least 400x400',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[700],
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
-                const Gap(30),
-                EditProfileForm(
-                  usernameController: usernameController,
-                  emailController: emailController,
-                  oldPasswordController: oldPasswordController,
-                  passwordController: passwordController,
-                ),
-              ],
-            ),
+              ),
+              const Gap(30),
+              EditProfileForm(
+                usernameController: usernameController,
+                emailController: emailController,
+                oldPasswordController: oldPasswordController,
+                passwordController: passwordController,
+              ),
+            ],
           ),
         );
       },
