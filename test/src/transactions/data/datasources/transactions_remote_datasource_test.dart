@@ -70,3 +70,4 @@
 //     when(() => authClient.currentUser).thenReturn(mockUser);
 //   });
 // }
+void main() {}

@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:retro_bank_app/core/usecases/usecases.dart';
 import 'package:retro_bank_app/core/utils/typedefs.dart';
 import 'package:retro_bank_app/src/transactions/domain/repos/transaction_repo.dart';
@@ -16,7 +17,7 @@ class AddTransaction extends UsecaseWithParams<void, AddTransactionParams> {
       );
 }
 
-class AddTransactionParams {
+class AddTransactionParams extends Equatable {
   const AddTransactionParams({
     required this.amount,
     required this.receiverCardId,
@@ -32,4 +33,7 @@ class AddTransactionParams {
   final int amount;
   final int receiverCardId;
   final int senderCardId;
+
+  @override
+  List<int> get props => [amount, receiverCardId, senderCardId];
 }

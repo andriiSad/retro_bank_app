@@ -9,30 +9,30 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       final prefs = serviceLocator<SharedPreferences>();
       return _pageBuilder(
         (context) {
-          // if (prefs.getBool(kFirstTimerKey) ?? true) {
-          //   return BlocProvider(
-          //     create: (_) => serviceLocator<OnBoardingCubit>(),
-          //     child: const OnBoardingScreen(),
-          //   );
-          // } else if (serviceLocator<FirebaseAuth>().currentUser != null) {
-          //   final user = serviceLocator<FirebaseAuth>().currentUser!;
-          //   final localUser = LocalUserModel(
-          //     id: user.uid,
-          //     email: user.email!,
-          //     username: user.displayName!,
-          //     photoUrl: user.photoURL,
-          //   );
-          context.userProvider.initUser(LocalUserModel.empty());
+          if (prefs.getBool(kFirstTimerKey) ?? true) {
+            return BlocProvider(
+              create: (_) => serviceLocator<OnBoardingCubit>(),
+              child: const OnBoardingScreen(),
+            );
+          } else if (serviceLocator<FirebaseAuth>().currentUser != null) {
+            final user = serviceLocator<FirebaseAuth>().currentUser!;
+            final localUser = LocalUserModel(
+              id: user.uid,
+              email: user.email!,
+              username: user.displayName!,
+              photoUrl: user.photoURL,
+            );
+            context.userProvider.initUser(localUser);
+            return BlocProvider(
+              create: (_) => serviceLocator<AuthBloc>(),
+              child: const DashboardScreen(),
+            );
+          }
           return BlocProvider(
             create: (_) => serviceLocator<AuthBloc>(),
-            child: const DashboardScreen(),
+            child: const SignInScreen(),
           );
         },
-        // return BlocProvider(
-        //   create: (_) => serviceLocator<AuthBloc>(),
-        //   child: const SignInScreen(),
-        // );
-        // },
         settings: settings,
       );
     case SignInScreen.routeName:

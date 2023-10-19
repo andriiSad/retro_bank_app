@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:retro_bank_app/core/services/injection_container/injection_container.dart';
 import 'package:retro_bank_app/src/auth/data/models/credit_card_model.dart';
 import 'package:retro_bank_app/src/auth/data/models/local_user_model.dart';
+import 'package:retro_bank_app/src/transactions/data/models/transaction_model.dart';
 
 class DashBoardUtils {
   const DashBoardUtils._();
@@ -26,6 +27,22 @@ class DashBoardUtils {
           .map((QuerySnapshot querySnapshot) {
         return querySnapshot.docs.map((DocumentSnapshot document) {
           return CreditCardModel.fromMap(
+            document.data()! as Map<String, dynamic>,
+          );
+        }).toList();
+      });
+
+  static Stream<List<TransactionModel>> get transactionsStream =>
+      serviceLocator<FirebaseFirestore>()
+          .collection('transactions')
+          .where(
+            'senderCardOwnerId',
+            isEqualTo: serviceLocator<FirebaseAuth>().currentUser?.uid,
+          )
+          .snapshots()
+          .map((QuerySnapshot querySnapshot) {
+        return querySnapshot.docs.map((DocumentSnapshot document) {
+          return TransactionModel.fromMap(
             document.data()! as Map<String, dynamic>,
           );
         }).toList();

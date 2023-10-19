@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:retro_bank_app/core/common/app/providers/cards_provider.dart';
 import 'package:retro_bank_app/core/common/app/providers/tab_navigator.dart';
 import 'package:retro_bank_app/core/common/app/providers/theme_mode_provider.dart';
+import 'package:retro_bank_app/core/common/app/providers/transactions_provider.dart';
 import 'package:retro_bank_app/core/common/app/providers/user_provider.dart';
 import 'package:retro_bank_app/src/auth/data/models/local_user_model.dart';
 
@@ -22,6 +23,8 @@ extension ContextExtension on BuildContext {
   UserProvider get userProvider => read<UserProvider>();
 
   CardsProvider get cardsProvider => read<CardsProvider>();
+
+  TransactionsProvider get transactionsProvider => read<TransactionsProvider>();
 
   LocalUserModel? get user => userProvider.user;
 

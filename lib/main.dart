@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:retro_bank_app/core/common/app/providers/cards_provider.dart';
 import 'package:retro_bank_app/core/common/app/providers/theme_mode_provider.dart';
+import 'package:retro_bank_app/core/common/app/providers/transactions_provider.dart';
 import 'package:retro_bank_app/core/common/app/providers/user_provider.dart';
 import 'package:retro_bank_app/core/extensions/context_extension.dart';
 import 'package:retro_bank_app/core/services/bloc_observer.dart';
@@ -42,6 +43,9 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => UserProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => TransactionsProvider(),
         ),
         ChangeNotifierProvider(
           create: (_) => DashboardController(),
