@@ -13,7 +13,7 @@ class SignUp extends UsecaseWithParams<void, SignUpParams> {
         email: params.email,
         password: params.password,
         username: params.username,
-        photoUrl: params.photoUrl,
+        photoData: params.photoUrl,
       );
 }
 

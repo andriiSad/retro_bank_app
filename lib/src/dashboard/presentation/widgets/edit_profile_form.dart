@@ -56,7 +56,9 @@ class EditProfileForm extends StatelessWidget {
         Center(
           child: AppTextButton(
             text: 'Log out',
-            onPressed: () {},
+            onPressed: () {
+              
+            },
           ),
         ),
       ],

@@ -23,6 +23,9 @@ class AppTheme {
         fontSize: 18,
         fontWeight: FontWeight.w500,
       ),
+      titleMedium: TextStyle(
+        fontSize: 24,
+      ),
       titleLarge: TextStyle(
         fontSize: 28,
       ),

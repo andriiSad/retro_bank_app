@@ -22,7 +22,7 @@ abstract class IAuthRemoteDataSource {
     required String email,
     required String password,
     required String username,
-    String? photoUrl,
+    String? photoData,
   });
   Future<void> forgotPassword({
     required String email,
@@ -131,7 +131,7 @@ class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
     required String email,
     required String password,
     required String username,
-    String? photoUrl,
+    String? photoData,
   }) async {
     try {
       final userCred = await _authClient.createUserWithEmailAndPassword(
@@ -141,7 +141,7 @@ class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
 
       await userCred.user?.updateDisplayName(username);
 
-      await userCred.user?.updatePhotoURL(photoUrl);
+      // await userCred.user?.updatePhotoURL(photoData);
 
       await _addNewCreditCard(
         balance: 10000,
@@ -152,13 +152,13 @@ class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
         type: CreditCardType.premium,
       );
 
-      // if (photoUrl != null) {
-      //   await updateUser(
-      //     action: UpdateUserAction.profilePic,
-      //     userData: photoUrl,
-      //   );
-      // }
       await _setUserData(_authClient.currentUser!, email);
+      if (photoData != null) {
+        await updateUser(
+          action: UpdateUserAction.profilePic,
+          userData: File(photoData),
+        );
+      }
     } on FirebaseAuthException catch (e) {
       throw ServerException(
         message: e.message ?? 'Error Occured',
@@ -193,7 +193,7 @@ class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
           await ref.putFile(userData as File);
           final url = await ref.getDownloadURL();
           await _authClient.currentUser!.updatePhotoURL(url);
-          await _updateUserData({'prifilePic': url});
+          await _updateUserData({'photoUrl': url});
         case UpdateUserAction.password:
           if (_authClient.currentUser?.email == null) {
             throw const ServerException(
@@ -273,6 +273,7 @@ class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
             ownerId: _authClient.currentUser!.uid,
             balance: balance,
             type: type,
+            cvv: generateCvv(),
           ).toMap(),
         );
   }
@@ -287,6 +288,13 @@ class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
     final random = Random();
     // Generate a random 4-digit ID between 1000 and 9999 (inclusive)
     final id = 1000 + random.nextInt(9000);
+    return id.toString();
+  }
+
+  String generateCvv() {
+    final random = Random();
+    // Generate a random 3-digit ID between 1000 and 9999 (inclusive)
+    final id = 100 + random.nextInt(900);
     return id.toString();
   }
 }

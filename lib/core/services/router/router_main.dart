@@ -10,6 +10,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _pageBuilder(
         (context) {
           if (prefs.getBool(kFirstTimerKey) ?? true) {
+            serviceLocator<FirebaseAuth>().signOut();
             return BlocProvider(
               create: (_) => serviceLocator<OnBoardingCubit>(),
               child: const OnBoardingScreen(),
@@ -23,8 +24,15 @@ Route<dynamic> generateRoute(RouteSettings settings) {
               photoUrl: user.photoURL,
             );
             context.userProvider.initUser(localUser);
-            return BlocProvider(
-              create: (_) => serviceLocator<AuthBloc>(),
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (_) => serviceLocator<AuthBloc>(),
+                ),
+                BlocProvider(
+                  create: (context) => serviceLocator<TransactionsBloc>(),
+                ),
+              ],
               child: const DashboardScreen(),
             );
           }
@@ -53,8 +61,15 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
     case DashboardScreen.routeName:
       return _pageBuilder(
-        (_) => BlocProvider(
-          create: (_) => serviceLocator<AuthBloc>(),
+        (_) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => serviceLocator<AuthBloc>(),
+            ),
+            BlocProvider(
+              create: (context) => serviceLocator<TransactionsBloc>(),
+            ),
+          ],
           child: const DashboardScreen(),
         ),
         settings: settings,

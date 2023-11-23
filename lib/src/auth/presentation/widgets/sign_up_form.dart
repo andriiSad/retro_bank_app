@@ -17,6 +17,7 @@ class SignUpForm extends StatefulWidget {
     required this.formKey,
     required this.confirmPasswordController,
     required this.usernameController,
+    required this.photoController,
     super.key,
   });
 
@@ -24,6 +25,7 @@ class SignUpForm extends StatefulWidget {
   final TextEditingController passwordController;
   final TextEditingController confirmPasswordController;
   final TextEditingController usernameController;
+  final TextEditingController photoController;
   final GlobalKey<FormState> formKey;
 
   @override
@@ -38,6 +40,7 @@ class _SignUpFormState extends State<SignUpForm> {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
+        widget.photoController.text = image.path;
         pickedImage = File(image.path);
       });
     }
@@ -55,6 +58,7 @@ class _SignUpFormState extends State<SignUpForm> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
+                fit: BoxFit.fill,
                 image: pickedImage != null
                     ? FileImage(pickedImage!)
                     : const Svg(MediaRes.robotAvatar) as ImageProvider,
@@ -68,8 +72,8 @@ class _SignUpFormState extends State<SignUpForm> {
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onPressed: pickImage,
-              icon: const Icon(
-                Icons.add_a_photo,
+              icon: Icon(
+                pickedImage != null ? Icons.edit : Icons.add_a_photo,
                 color: Colors.white,
               ),
             ),

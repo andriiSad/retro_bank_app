@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:retro_bank_app/core/res/colors.dart';
+import 'package:retro_bank_app/core/extensions/context_extension.dart';
 
 class CoreUtils {
   const CoreUtils._();
@@ -14,13 +14,10 @@ class CoreUtils {
         SnackBar(
           content: Text(
             message,
-            style: TextStyle(
-              color: Colours.whiteColour,
-              fontWeight: FontWeight.bold,
-            ),
+            style: context.textTheme.bodyMedium,
           ),
           behavior: SnackBarBehavior.floating,
-          backgroundColor: Colours.primaryColour,
+          backgroundColor: Colors.grey[400],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),

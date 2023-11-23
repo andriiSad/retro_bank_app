@@ -28,6 +28,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final usernameController = TextEditingController();
+  //TODO(Maybe change to different controller type) :
+  final photoController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
 
@@ -58,6 +60,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           body: BlocConsumer<AuthBloc, AuthState>(
             listener: (_, state) {
               if (state is AuthError) {
+                debugPrint(state.message);
                 CoreUtils.showSnackBar(context, state.message);
               } else if (state is SignedUp) {
                 context.read<AuthBloc>().add(
@@ -89,6 +92,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         passwordController: passwordController,
                         confirmPasswordController: confirmPasswordController,
                         usernameController: usernameController,
+                        photoController: photoController,
                         formKey: formKey,
                       ),
                       const Gap(30),
@@ -125,7 +129,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             passwordController.text.trim(),
                                         username:
                                             usernameController.text.trim(),
-                                        photoUrl: 'TEST URL',
+                                        photoUrl:
+                                            photoController.text.trim().isEmpty
+                                                ? null
+                                                : photoController.text.trim(),
                                       ),
                                     );
                               }

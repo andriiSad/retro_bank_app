@@ -1,15 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AppSvgButton extends StatefulWidget {
   const AppSvgButton({
     required this.path,
-    required this.onPressed,
+    super.key,
     this.fillColor = Colors.white,
     this.shadowColor = Colors.black,
-    this.size = 50.0, // Adjust the size of the circular button
+    this.size = 50.0,
     this.isNetwork = false,
-    super.key,
+    this.onPressed,
   });
 
   final String path;
@@ -49,9 +50,11 @@ class _AppSvgButtonState extends State<AppSvgButton> {
         ),
         child: InkWell(
           onTapDown: (_) {
-            setState(() {
-              isPressed = true;
-            });
+            if (widget.onPressed != null) {
+              setState(() {
+                isPressed = true;
+              });
+            }
           },
           onTapUp: (_) {
             setState(() {
@@ -63,20 +66,35 @@ class _AppSvgButtonState extends State<AppSvgButton> {
               isPressed = false;
             });
           },
-          onTap: widget.onPressed,
-          child: Center(
-            child: widget.isNetwork
-                ? SvgPicture.network(
-                    widget.path,
-                    width: 24,
-                    height: 24,
-                  )
-                : SvgPicture.asset(
-                    widget.path,
-                    width: 24,
-                    height: 24,
+          onTap: widget.onPressed != null ? () => widget.onPressed!() : null,
+          child: widget.isNetwork
+              ? CachedNetworkImage(
+                  imageUrl: widget.path,
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle, // Make the button circular
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: imageProvider,
+                      ),
+                    ),
                   ),
-          ),
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      Center(
+                    child: CircularProgressIndicator(
+                      value: downloadProgress.progress,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                )
+              : Center(
+                  child: SvgPicture.asset(
+                    widget.path,
+                    width: widget.size / 2,
+                    height: widget.size / 2,
+                  ),
+                ),
         ),
       ),
     );

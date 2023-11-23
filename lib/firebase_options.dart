@@ -2,7 +2,7 @@
 // ignore_for_file: lines_longer_than_80_chars, avoid_classes_with_only_static_members
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
-    show TargetPlatform, defaultTargetPlatform, kIsWeb;
+    show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -42,13 +36,21 @@ class DefaultFirebaseOptions {
           'DefaultFirebaseOptions have not been configured for linux - '
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
-      case TargetPlatform.fuchsia:
+      default:
         throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for fuchsia - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
+          'DefaultFirebaseOptions are not supported for this platform.',
         );
     }
   }
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBzjT86sxwcwL7QEL_Q5-6pF0l8tYOW0SY',
+    appId: '1:787505359921:web:518995fde7ee87b5f5f910',
+    messagingSenderId: '787505359921',
+    projectId: 'retro-bank-2458e',
+    authDomain: 'retro-bank-2458e.firebaseapp.com',
+    storageBucket: 'retro-bank-2458e.appspot.com',
+  );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDF_e_IZgUKM3sp0dLL8e737xF1RB4zmd0',
@@ -65,5 +67,14 @@ class DefaultFirebaseOptions {
     projectId: 'retro-bank-2458e',
     storageBucket: 'retro-bank-2458e.appspot.com',
     iosBundleId: 'com.example.retroBankApp',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyAJjKjkx2sTOg8OZ_zJiOZZMEgoY28O7Jo',
+    appId: '1:787505359921:ios:e09eabfe5a7896cff5f910',
+    messagingSenderId: '787505359921',
+    projectId: 'retro-bank-2458e',
+    storageBucket: 'retro-bank-2458e.appspot.com',
+    iosBundleId: 'com.example.retroBankApp.RunnerTests',
   );
 }

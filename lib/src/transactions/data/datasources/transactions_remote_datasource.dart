@@ -32,6 +32,8 @@ class TransactionsRemoteDatasourceImpl
     required int senderCardId,
   }) async {
     try {
+      print(senderCardId);
+      print(receiverCardId);
       final senderCardOwnerId = _authClient.currentUser!.uid;
       final receiverCardOwnerId = await _getUserIdByCardId(receiverCardId);
 
@@ -42,12 +44,41 @@ class TransactionsRemoteDatasourceImpl
         receiverCardOwnerId: receiverCardOwnerId,
         amount: amount,
       );
+
       await _cloudStoreClient
           .collection('transactions')
           .doc(transaction.transactionId)
           .set(
             transaction.toMap(),
           );
+      await _cloudStoreClient
+          .collection('cards')
+          .doc(senderCardId.toString())
+          .update(
+        {
+          'balance': FieldValue.increment(-amount),
+        },
+      );
+      await _cloudStoreClient
+          .collection('cards')
+          .doc(receiverCardId.toString())
+          .update(
+        {
+          'balance': FieldValue.increment(amount),
+        },
+      );
+      final receiverCurrentBalance = await _cloudStoreClient
+          .collection('cards')
+          .doc(receiverCardId.toString())
+          .get()
+          .then((doc) => doc.data()?['balance'] as int);
+      final senderCurrentBalance = await _cloudStoreClient
+          .collection('cards')
+          .doc(senderCardId.toString())
+          .get()
+          .then((doc) => doc.data()?['balance'] as int);
+      print('SENDER BALANCE AFTER: $receiverCurrentBalance');
+      print('RECEIVER BALANCE AFTER: $senderCurrentBalance');
     } on FirebaseException catch (e) {
       throw ServerException(
         message: e.message ?? 'Error Occured',

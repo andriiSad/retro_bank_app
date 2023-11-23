@@ -4,7 +4,7 @@ class CombinedImage extends StatefulWidget {
   const CombinedImage({
     required this.topImagePath,
     required this.bottomImagePath,
-    this.imageSeparationIndex = 0.7,
+    this.imageSeparationIndex = 0.9,
     super.key,
   });
 

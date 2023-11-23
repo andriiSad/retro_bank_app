@@ -41,15 +41,17 @@ class TransactionModel extends Transaction {
         transactionDate: DateTime.now(),
       );
 
-  factory TransactionModel.fromMap(DataMap map) => TransactionModel(
-        transactionId: map['transactionId'] as String,
-        amount: map['amount'] as int,
-        receiverCardId: map['receiverCardId'] as int,
-        receiverCardOwnerId: map['receiverCardOwnerId'] as String,
-        senderCardId: map['senderCardId'] as int,
-        senderCardOwnerId: map['senderCardOwnerId'] as String,
-        transactionDate: DateTime.parse(map['transactionDate'] as String),
-      );
+  factory TransactionModel.fromMap(DataMap map) {
+    return TransactionModel(
+      transactionId: map['transactionId'] as String,
+      amount: map['amount'] as int,
+      receiverCardId: map['receiverCardId'] as int,
+      receiverCardOwnerId: map['receiverCardOwnerId'] as String,
+      senderCardId: map['senderCardId'] as int,
+      senderCardOwnerId: map['senderCardOwnerId'] as String,
+      transactionDate: (map['transactionDate'] as firestore.Timestamp).toDate(),
+    );
+  }
 
   DataMap toMap() => {
         'transactionId': transactionId,
@@ -82,8 +84,14 @@ class TransactionModel extends Transaction {
   }
 
   @override
-  List<String> get props => [
+  List<Object?> get props => [
         transactionId,
+        amount,
+        receiverCardId,
+        receiverCardOwnerId,
+        senderCardId,
+        senderCardOwnerId,
+        transactionDate,
       ];
 
   @override

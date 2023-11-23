@@ -11,6 +11,37 @@ Future<void> init() async {
 
   await _initOnBoarding(prefs);
   await _initAuth();
+  await _initTransactions();
+}
+
+Future<void> _initOnBoarding(SharedPreferences prefs) async {
+  serviceLocator
+    //Buisness Logic
+    ..registerFactory(
+      () => OnBoardingCubit(
+        cacheFirstTimer: serviceLocator(),
+        checkIfUserIsFirstTimer: serviceLocator(),
+      ),
+    )
+
+    //Use cases
+    ..registerLazySingleton(() => CacheFirstTimer(serviceLocator()))
+    ..registerLazySingleton(() => CheckIfUserIsFirstTimer(serviceLocator()))
+
+    //Repositories
+    ..registerLazySingleton<IOnBoardingRepo>(
+      () => OnBoardingRepoImpl(serviceLocator()),
+    )
+
+    //Data Sources
+    ..registerLazySingleton<IOnBoardingLocalDataSource>(
+      () => OnBoardingLocalDataSourceImpl(serviceLocator()),
+    )
+
+    //External Dependencies
+    ..registerLazySingleton(
+      () => prefs,
+    );
 }
 
 Future<void> _initAuth() async {
@@ -60,32 +91,29 @@ Future<void> _initAuth() async {
     );
 }
 
-Future<void> _initOnBoarding(SharedPreferences prefs) async {
+Future<void> _initTransactions() async {
   serviceLocator
     //Buisness Logic
     ..registerFactory(
-      () => OnBoardingCubit(
-        cacheFirstTimer: serviceLocator(),
-        checkIfUserIsFirstTimer: serviceLocator(),
+      () => TransactionsBloc(
+        addTransaction: serviceLocator(),
       ),
     )
 
     //Use cases
-    ..registerLazySingleton(() => CacheFirstTimer(serviceLocator()))
-    ..registerLazySingleton(() => CheckIfUserIsFirstTimer(serviceLocator()))
+    ..registerLazySingleton(() => AddTransaction(serviceLocator()))
 
     //Repositories
-    ..registerLazySingleton<IOnBoardingRepo>(
-      () => OnBoardingRepoImpl(serviceLocator()),
+    //because we register interface but passing impl, we specify type
+    ..registerLazySingleton<ITransactionRepo>(
+      () => TransactionsRepoImpl(serviceLocator()),
     )
 
     //Data Sources
-    ..registerLazySingleton<IOnBoardingLocalDataSource>(
-      () => OnBoardingLocalDataSourceImpl(serviceLocator()),
-    )
-
-    //External Dependencies
-    ..registerLazySingleton(
-      () => prefs,
+    ..registerLazySingleton<ITransactionsRemoteDataSource>(
+      () => TransactionsRemoteDatasourceImpl(
+        authClient: serviceLocator(),
+        cloudStoreClient: serviceLocator(),
+      ),
     );
 }

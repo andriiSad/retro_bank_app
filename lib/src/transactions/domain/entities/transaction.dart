@@ -20,7 +20,13 @@ class Transaction extends Equatable {
   final DateTime transactionDate;
 
   @override
-  List<String> get props => [
+  List<Object?> get props => [
         transactionId,
+        amount,
+        receiverCardId,
+        receiverCardOwnerId,
+        senderCardId,
+        senderCardOwnerId,
+        transactionDate,
       ];
 }

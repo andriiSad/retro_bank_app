@@ -67,7 +67,7 @@ class _MainAppState extends State<MainApp> {
   @override
   void initState() {
     super.initState();
-    context.themeProvider.initThemeMode();
+    context.themeProvider.initThemeMode(ThemeMode.light);
   }
 
   @override

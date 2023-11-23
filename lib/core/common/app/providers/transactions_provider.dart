@@ -12,8 +12,4 @@ class TransactionsProvider extends ChangeNotifier {
       Future.delayed(Duration.zero, notifyListeners);
     }
   }
-
-  // void initCards(List<CreditCardModel>? cards) {
-  //   if (_cards != cards) _cards = cards;
-  // }
 }

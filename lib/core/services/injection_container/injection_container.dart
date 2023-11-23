@@ -17,6 +17,11 @@ import 'package:retro_bank_app/src/on_boarding/domain/repos/on_boarding_repo.dar
 import 'package:retro_bank_app/src/on_boarding/domain/usecases/cache_first_timer.dart';
 import 'package:retro_bank_app/src/on_boarding/domain/usecases/check_if_user_is_first_timer.dart';
 import 'package:retro_bank_app/src/on_boarding/presentation/cubit/on_boarding_cubit.dart';
+import 'package:retro_bank_app/src/transactions/data/datasources/transactions_remote_datasource.dart';
+import 'package:retro_bank_app/src/transactions/data/repos/transactions_repo_impl.dart';
+import 'package:retro_bank_app/src/transactions/domain/repos/transaction_repo.dart';
+import 'package:retro_bank_app/src/transactions/domain/usecases/add_transaction.dart';
+import 'package:retro_bank_app/src/transactions/presentation/bloc/transactions_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'injection_container_main.dart';

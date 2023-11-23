@@ -33,18 +33,21 @@ void main() {
           ownerId: tCard.ownerId,
           type: tCard.type,
           balance: 100,
+          cvv: tCard.cvv,
         ),
         CreditCard(
           cardId: tCard.cardId,
           ownerId: tCard.ownerId,
           type: tCard.type,
           balance: 200,
+          cvv: tCard.cvv,
         ),
         CreditCard(
           cardId: tCard.cardId,
           ownerId: tCard.ownerId,
           type: tCard.type,
           balance: 300,
+          cvv: tCard.cvv,
         ),
       ];
       expect(cards.totalBalance, 600); // 100 + 200 + 300 = 600

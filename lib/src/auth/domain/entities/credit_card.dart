@@ -7,6 +7,7 @@ class CreditCard extends Equatable {
     required this.ownerId,
     required this.balance,
     required this.type,
+    required this.cvv,
   });
 
   factory CreditCard.empty() {
@@ -15,6 +16,7 @@ class CreditCard extends Equatable {
       ownerId: '_empty.ownerId',
       balance: 0,
       type: CreditCardType.premium,
+      cvv: '_empty.cvv',
     );
   }
 
@@ -22,7 +24,8 @@ class CreditCard extends Equatable {
   final String ownerId;
   final CreditCardType type;
   final int balance;
+  final String cvv;
 
   @override
-  List<Object?> get props => [cardId, ownerId, balance, type];
+  List<Object?> get props => [cardId, ownerId, balance, type, cvv];
 }

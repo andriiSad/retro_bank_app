@@ -12,7 +12,7 @@ abstract class IAuthRepo {
     required String email,
     required String password,
     required String username,
-    String? photoUrl,
+    String? photoData,
   });
 
   ResultVoid forgotPassword({

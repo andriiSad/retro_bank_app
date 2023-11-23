@@ -56,14 +56,14 @@ class AuthRepoImpl implements IAuthRepo {
     required String email,
     required String password,
     required String username,
-    String? photoUrl,
+    String? photoData,
   }) async {
     try {
       await _remoteDataSource.signUp(
         email: email,
         password: password,
         username: username,
-        photoUrl: photoUrl,
+        photoData: photoData,
       );
       return const Right(null);
     } on ServerException catch (e) {

@@ -24,64 +24,70 @@ class _DashboardScreenState extends State<DashboardScreen> {
             index: controller.currentIndex,
             children: controller.screens,
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            currentIndex: controller.currentIndex,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            backgroundColor: Colors.grey[200],
-            elevation: 0,
-            onTap: controller.changeIndex,
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(
-                  controller.currentIndex == 0
-                      ? IconlyBold.home
-                      : IconlyLight.home,
-                  color: controller.currentIndex == 0
-                      ? Colours.primaryColour
-                      : Colors.grey,
+          bottomNavigationBar: Theme(
+            data: ThemeData(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+            ),
+            child: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              currentIndex: controller.currentIndex,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              backgroundColor: Colors.grey[200],
+              elevation: 0,
+              onTap: controller.changeIndex,
+              items: [
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    controller.currentIndex == 0
+                        ? IconlyBold.home
+                        : IconlyLight.home,
+                    color: controller.currentIndex == 0
+                        ? Colors.black
+                        : Colors.grey,
+                  ),
+                  label: 'Home',
+                  backgroundColor: Colours.whiteColour,
                 ),
-                label: 'Home',
-                backgroundColor: Colours.whiteColour,
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  controller.currentIndex == 1
-                      ? IconlyBold.send
-                      : IconlyLight.send,
-                  color: controller.currentIndex == 1
-                      ? Colours.primaryColour
-                      : Colors.grey,
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    controller.currentIndex == 1
+                        ? IconlyBold.send
+                        : IconlyLight.send,
+                    color: controller.currentIndex == 1
+                        ? Colors.black
+                        : Colors.grey,
+                  ),
+                  label: 'Materials',
+                  backgroundColor: Colours.whiteColour,
                 ),
-                label: 'Materials',
-                backgroundColor: Colours.whiteColour,
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  controller.currentIndex == 2
-                      ? IconlyBold.document
-                      : IconlyLight.document,
-                  color: controller.currentIndex == 2
-                      ? Colours.primaryColour
-                      : Colors.grey,
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    controller.currentIndex == 2
+                        ? IconlyBold.document
+                        : IconlyLight.document,
+                    color: controller.currentIndex == 2
+                        ? Colors.black
+                        : Colors.grey,
+                  ),
+                  label: 'Transactions',
+                  backgroundColor: Colours.whiteColour,
                 ),
-                label: 'Transactions',
-                backgroundColor: Colours.whiteColour,
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  controller.currentIndex == 3
-                      ? IconlyBold.setting
-                      : IconlyLight.setting,
-                  color: controller.currentIndex == 3
-                      ? Colours.primaryColour
-                      : Colors.grey,
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    controller.currentIndex == 3
+                        ? IconlyBold.setting
+                        : IconlyLight.setting,
+                    color: controller.currentIndex == 3
+                        ? Colors.black
+                        : Colors.grey,
+                  ),
+                  label: 'Settings',
+                  backgroundColor: Colours.whiteColour,
                 ),
-                label: 'Settings',
-                backgroundColor: Colours.whiteColour,
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

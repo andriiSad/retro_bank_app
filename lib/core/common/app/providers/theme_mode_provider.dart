@@ -7,9 +7,8 @@ class ThemeModeProvider extends ChangeNotifier {
 
   bool get isDarkMode => themeMode == ThemeMode.dark;
 
-  void initThemeMode() {
-    _themeMode = ThemeMode.light;
-  }
+  // ignore: use_setters_to_change_properties
+  void initThemeMode(ThemeMode themeMode) => _themeMode = themeMode;
 
   void toggleThemeMode() {
     _themeMode =
