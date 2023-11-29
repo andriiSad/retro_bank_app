@@ -125,3 +125,19 @@ flutter:
           weight: 900
         - asset: assets/fonts/poppins/Poppins-Black.ttf
           weight: 900
+
+    - family: sfPro
+      fonts:
+        - asset: assets/fonts/sfPro/SF-Pro-Text-Regular.otf
+          weight: 400
+        - asset: assets/fonts/sfPro/SF-Pro-Text-Medium.otf
+          weight: 500
+        - asset: assets/fonts/sfPro/SF-Pro-Text-Semibold.otf
+          weight: 600
+        - asset: assets/fonts/sfPro/SF-Pro-Text-Bold.otf
+          weight: 700
+
+    - family: roboto
+      fonts:
+        - asset: assets/fonts/roboto/Roboto-Regular.ttf
+          weight: 400
