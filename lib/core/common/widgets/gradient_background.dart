@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:retro_bank_app/core/res/colors.dart';
 
 class GradientBackground extends StatelessWidget {
-  const GradientBackground({required this.child, super.key});
+  const GradientBackground({
+    required this.child,
+    required this.colors,
+    super.key,
+  });
   final Widget child;
+  final List<Color> colors;
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +15,7 @@ class GradientBackground extends StatelessWidget {
       constraints: const BoxConstraints.expand(),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: Colours.gradient,
+          colors: colors,
         ),
       ),
       child: SafeArea(child: child),

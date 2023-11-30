@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:retro_bank_app/core/common/app/providers/cards_provider.dart';
 import 'package:retro_bank_app/core/common/app/providers/theme_mode_provider.dart';
@@ -72,13 +73,16 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Education App',
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: context.themeProvider.themeMode,
-      onGenerateRoute: generateRoute,
-      debugShowCheckedModeBanner: false,
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      builder: (context, _) => MaterialApp(
+        title: 'Education App',
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        themeMode: context.themeProvider.themeMode,
+        onGenerateRoute: generateRoute,
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
