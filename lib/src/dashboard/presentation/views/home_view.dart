@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:multiple_stream_builder/multiple_stream_builder.dart';
 import 'package:retro_bank_app/core/common/widgets/gradient_background.dart';
 import 'package:retro_bank_app/core/extensions/context_extension.dart';
@@ -9,10 +10,36 @@ import 'package:retro_bank_app/core/services/injection_container/injection_conta
 import 'package:retro_bank_app/src/auth/data/models/credit_card_model.dart';
 import 'package:retro_bank_app/src/auth/data/models/local_user_model.dart';
 import 'package:retro_bank_app/src/dashboard/presentation/utils/dashboard_utils.dart';
+import 'package:retro_bank_app/src/dashboard/presentation/widgets/mono_card_view.dart';
 import 'package:retro_bank_app/src/transactions/data/models/transaction_model.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  late int selectedPage;
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedPage = 0;
+    _pageController = PageController(
+      initialPage: selectedPage,
+      viewportFraction: 0.85,
+    );
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +79,52 @@ class HomeView extends StatelessWidget {
         }
 
         // final user = context.userProvider.user;
-        // final cards = context.cardsProvider.cards;
+        final cards = context.cardsProvider.cards;
         // final transactions = context.transactionsProvider.transactions;
 
         return GradientBackground(
           colors: Colours.purplegradient,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 184.h,
+                    width: 379.w,
+                    child: PageView.builder(
+                      controller: _pageController,
+                      itemCount: cards!.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.only(
+                            right: 20.w,
+                          ),
+                          child: MonoCardView(
+                            card: cards[index],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Gap(22.h),
+                  Center(
+                    child: SmoothPageIndicator(
+                      controller: _pageController,
+                      count: cards.length,
+                      effect: JumpingDotEffect(
+                        spacing: 16.w,
+                        dotHeight: 8.h,
+                        dotWidth: 8.w,
+                        activeDotColor: Colours.white,
+                        dotColor: Colours.inactiveDotColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               Container(
                 width: double.infinity,
                 height: 340.h,

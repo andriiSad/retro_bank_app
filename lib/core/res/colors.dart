@@ -36,6 +36,14 @@ class Colours {
     '#304658'.toColor(),
     '#4C6E8C'.toColor(),
   ];
+  static List<Color> darkBlueCardGradient = [
+    '#080C17'.toColor(),
+    '#151C29'.toColor(),
+  ];
+  static List<Color> lightBlueCardGradient = [
+    '#1A4CC2'.toColor(),
+    '#1C57B9'.toColor(),
+  ];
 
   static Color inactiveIconColor = '#979797'.toColor();
 
@@ -43,4 +51,7 @@ class Colours {
 
   static Color bottomNavigationBackgroundColor = '#2F2F2F'.toColor();
   static Color transactionsBackgroundColor = '#1E1E1E'.toColor();
+  static Color white = '#FFFFFF'.toColor();
+  static Color black = '#000000'.toColor();
+  static Color inactiveDotColor = '#D9D9D9'.toColor();
 }
